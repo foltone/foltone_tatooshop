@@ -15,7 +15,7 @@ Voici un script de tatouage pour votre serveur FiveM. Ce script est optimisé et
 - [oxmysql](https://github.com/overextended/oxmysql)
 
 ### Vidéo
-https://
+https://youtu.be/NPN7heXusjg
 
 ### Discord
 https://discord.gg/X9ReemrhKh
