@@ -1,4 +1,4 @@
-# foltone_tatooshop
+# foltone_tattooshop
 
 ## Description
 Voici un script de tatouage pour votre serveur FiveM. Ce script est optimisé et configurable. Vous pouvez ajouter des tatouages à l'infini. Vous pouvez également traduire le script en changeant les textes dans le fichier `locales.lua`.
