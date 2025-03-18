@@ -206,7 +206,7 @@ function RageUI.PoolMenus:FoltoneTattooShop()
                 label = v.label
             end
             if alreadyHaveTattoo(v.collection, v.name) then
-                Items:AddButton(label, nil, { RightBadge = RageUI.BadgeStyle.Tattoo }, function(onSelected)
+                Items:AddButton(label, Trad("remove_tattoo", Config.Price), { RightBadge = RageUI.BadgeStyle.Tattoo }, function(onSelected)
                     if onSelected then
                         if ESX.GetAccount("money").money >= Config.Price then
                             for k, v in pairs(FoltoneTattooShop.PlayerTattoos) do
@@ -217,7 +217,6 @@ function RageUI.PoolMenus:FoltoneTattooShop()
                             end
                             TriggerServerEvent("foltone_tattooshop:removeTattoo", FoltoneTattooShop.PlayerTattoos)
                             applyOwnPlayerTattoos()
-                            RageUI.GoBack()
                         else
                             Config.Notification(Trad("not_enough_money"))
                         end
@@ -234,6 +233,7 @@ function RageUI.PoolMenus:FoltoneTattooShop()
                     if onSelected then
                         if ESX.GetAccount("money").money >= Config.Price then
                             FoltoneTattooShop.PlayerTattoos[#FoltoneTattooShop.PlayerTattoos + 1] = v
+                            applyOwnPlayerTattoos()
                             TriggerServerEvent("foltone_tattooshop:buyTattoo", FoltoneTattooShop.PlayerTattoos, Config.Price)
                         else
                             Config.Notification(Trad("not_enough_money"))
@@ -261,17 +261,6 @@ CreateThread(function()
         AddTextComponentString(Config.Blip.Name)
         EndTextCommandSetBlipName(blip)
     end
-    ESX.TriggerServerCallback("foltone_tattooshop:getPlayerTattoos", function(tattoos)
-        if tattoos and #tattoos > 0 then
-            FoltoneTattooShop.PlayerTattoos = tattoos
-        else
-            FoltoneTattooShop.PlayerTattoos = {}
-        end
-    end)
-    while not FoltoneTattooShop.PlayerTattoos do
-        Wait(500)
-    end
-    applyOwnPlayerTattoos()
     while true do
         local wait = 750
         local playerPed = PlayerPedId()
@@ -300,6 +289,16 @@ RegisterNetEvent("esx:playerLoaded")
 AddEventHandler("esx:playerLoaded", function(xPlayer)
     ESX.PlayerData = xPlayer
     ESX.PlayerLoaded = true
+end)
+AddEventHandler("skinchanger:modelLoaded", function()
+    ESX.TriggerServerCallback("foltone_tattooshop:getPlayerTattoos", function(tattoos)
+        if tattoos and #tattoos > 0 then
+            FoltoneTattooShop.PlayerTattoos = tattoos
+            applyOwnPlayerTattoos()
+        else
+            FoltoneTattooShop.PlayerTattoos = {}
+        end
+    end)
 end)
 RegisterNetEvent("foltone_tattooshop:notification")
 AddEventHandler("foltone_tattooshop:notification", function(message)
