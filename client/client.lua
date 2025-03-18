@@ -209,9 +209,9 @@ function RageUI.PoolMenus:FoltoneTattooShop()
                 Items:AddButton(label, Trad("remove_tattoo", Config.Price), { RightBadge = RageUI.BadgeStyle.Tattoo }, function(onSelected)
                     if onSelected then
                         if ESX.GetAccount("money").money >= Config.Price then
-                            for k, v in pairs(FoltoneTattooShop.PlayerTattoos) do
-                                if string.lower(v.collection) == string.lower(v.collection) and string.lower(v.name) == string.lower(v.name) then
-                                    table.remove(FoltoneTattooShop.PlayerTattoos, k)
+                            for k2, v2 in pairs(FoltoneTattooShop.PlayerTattoos) do
+                                if string.lower(v2.collection) == string.lower(v.collection) and string.lower(v2.name) == string.lower(v.name) then
+                                    table.remove(FoltoneTattooShop.PlayerTattoos, k2)
                                     break
                                 end
                             end
